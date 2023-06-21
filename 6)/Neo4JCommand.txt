@@ -1,0 +1,7 @@
+CALL apoc.load.json("file:///C:/Users/wit_w/OneDrive/Desktop/retweets.json")
+YIELD value
+MERGE (c:Tweets {name: value.user.name})
+WITH c, value
+UNWIND value.retweeted_status AS parent
+MERGE (p:Tweets {name: parent.user.name})
+MERGE (p)-[:RETWEET_BY]->(c);

@@ -1,0 +1,4 @@
+var map = function() { emit(this.retweeted_status.id_str, 1);};
+var reduce = function(keyTweet, retweets) { return Array.sum(retweets); };
+db.retweets.mapReduce(map, reduce, {out : "sumRetweets"})
+db.sumRetweets.find().toArray()
